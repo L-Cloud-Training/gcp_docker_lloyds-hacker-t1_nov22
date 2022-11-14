@@ -1,0 +1,33 @@
+{ 
+    "name": "Post", 
+    "columns": { 
+       "id": { 
+          "primary": true, 
+          "type": "int", 
+          "generated": true 
+       }, 
+       "charityId": { 
+          "type": "int" 
+       },
+       "charityName": {
+          "type": "varchar",
+          "nullable": true
+       },
+       "userId": { 
+         "type": "int"
+      },
+      "userName": {
+         "type": "varchar",
+         "nullable": true
+      },
+      "mediaId": { 
+         "type": "int" 
+      }, 
+       "description": { 
+          "type": "varchar" 
+       }, 
+       "funds": { 
+          "type": "float" 
+       }
+    } 
+ }

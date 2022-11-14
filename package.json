@@ -1,0 +1,30 @@
+{
+  "name": "hackathon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@jest-mock/express": "^1.4.5",
+    "jest": "^27.4.2",
+    "jest-sonar-reporter": "^2.0.0",
+    "sonarqube-scanner": "^2.8.1",
+    "supertest": "^6.1.6"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parinitakothari/hackathon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/parinitakothari/hackathon/issues"
+  },
+  "homepage": "https://github.com/parinitakothari/hackathon#readme",
+  "description": "",
+  "dependencies": {
+    "jest-sonar": "^0.2.12"
+  }
+}

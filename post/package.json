@@ -1,0 +1,23 @@
+{
+    "name": "typeorm-javascript-student-app",
+    "version": "0.0.1",
+    "description": "Awesome project developed with TypeORM.",
+    "dependencies": {
+        "express": "^4.17.1",
+        "pg": "^8.7.1",
+        "postgres": "^1.0.2",
+        "request": "^2.81.0",
+        "request-promise": "^4.2.6",
+        "typeorm": "^0.2.38"
+    },
+    "scripts": {
+        "test": "jest -i --detectOpenHandles",
+        "start": "node src/index.js"
+    },
+    "devDependencies": {
+        "@jest-mock/express": "^1.4.5",
+        "jest": "^27.3.1",
+        "sqlite3": "^5.0.2",
+        "supertest": "^6.1.6"
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "sharecare-media-student-app",
+  "version": "0.0.1",
+  "description": "Awesome project developed with TypeORM.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest -i",
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "typeorm": "^0.2.38"
+  },
+  "devDependencies": {
+    "@jest-mock/express": "^1.4.5",
+    "jest": "^27.3.1",
+    "sqlite3": "^5.0.2"
+  }
+}

@@ -1,0 +1,13 @@
+{ 
+    "name": "Media", 
+    "columns": { 
+       "id": { 
+          "primary": true, 
+          "type": "int", 
+          "generated": true 
+       }, 
+       "url": { 
+          "type": "varchar" 
+       }
+    } 
+ }

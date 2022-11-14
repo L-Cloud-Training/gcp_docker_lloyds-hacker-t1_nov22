@@ -1,0 +1,26 @@
+{ 
+   "name": "User", 
+   "columns": { 
+      "id": { 
+         "primary": true, 
+         "type": "int", 
+         "generated": true 
+      }, 
+      "firstName": { 
+         "type": "varchar" 
+      }, 
+      "lastName": { 
+         "type": "varchar" 
+      }, 
+      "eMail": { 
+         "type": "varchar" 
+      }, 
+      "password": { 
+         "type": "varchar" 
+      }, 
+      "age": { 
+         "type": "integer",
+         "nullable": "true"
+      } 
+   } 
+}
