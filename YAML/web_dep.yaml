@@ -17,7 +17,7 @@ spec:
         image: gcr.io/lloyds-hack-t1/web_image:latest
         env:
         - name: BASE_URL
-          value: "34.142.119.162" 
+          value: 34.142.119.162 
         - name: NUXT_HOST
           value: "0.0.0.0"
         ports:
