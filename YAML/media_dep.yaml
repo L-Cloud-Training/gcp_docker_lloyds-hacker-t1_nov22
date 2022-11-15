@@ -17,17 +17,30 @@ spec:
         image: gcr.io/lloyds-hack-t1/media_image:latest
         env:
         - name: DATABASE_HOST
-          value: "35.246.56.176"
+          value: 35.246.56.176
         - name: DATABASE_PORT
           value: "5432"
         - name: DATABASE_NAME
-          value: media
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass2
+              key: mediadb
+              optional: false
         - name: DATABASE_USERNAME
-          value: postgres
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass2
+              key: username
+              optional: false
         - name: DATABASE_PASSWORD
-          value: q~+0x^'8/_D`h'nX
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass2
+              key: password
+              optional: false
         ports:
         - containerPort: 3000
+        imagePullPolicy: Always
         resources:
           limits:
             cpu: 500m
@@ -39,7 +52,7 @@ kind: Service
 metadata:
   name: media-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 3000
@@ -49,16 +62,14 @@ spec:
   apiVersion: networking.k8s.io/v1
   kind: Ingress
   metadata:
-    name: ingress-resource
-    annotations:
-      kubernetes.io/ingress.class: "nginx"
-      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    name: ingress-resource-media
   spec:
+    ingressClassName: nginx
     rules:
     - http:
         paths:
         - pathType: Prefix
-          path: "/media"
+          path: /media
           backend:
             service:
               name: media-service

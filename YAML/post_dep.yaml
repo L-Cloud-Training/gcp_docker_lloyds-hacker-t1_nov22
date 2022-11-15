@@ -1,33 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: user-deployment
+  name: post-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: User
+      app: Post
   template:
     metadata:
       labels:
-        app: User
+        app: Post
     spec: 
       containers:
-      - name:  user-deployment
+      - name:  post-deployment
         image: gcr.io/lloyds-hack-t1/post_image:latest
         env:
         - name: DATABASE_HOST
-          value: "35.246.56.176"
+          value: 35.246.56.176
         - name: DATABASE_PORT
           value: "5432"
         - name: DATABASE_NAME
-          value: user
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass2
+              key: postdb
+              optional: false
         - name: DATABASE_USERNAME
-          value: postgres
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass2
+              key: username
+              optional: false
         - name: DATABASE_PASSWORD
-          value: q~+0x^'8/_D`h'nX
+          valueFrom:
+            secretKeyRef:
+              name: db-user-pass2
+              key: password
+              optional: false
+        - name: MEDIA_SERVICE_URL
+          value: http://media-service:80
         ports:
         - containerPort: 3000
+        imagePullPolicy: Always
         resources:
           limits:
             cpu: 500m
@@ -37,30 +52,28 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: user-service
+  name: post-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
   - port: 80
     targetPort: 3000
   selector:
-    app: User
+    app: Post
 ---
   apiVersion: networking.k8s.io/v1
   kind: Ingress
   metadata:
-    name: ingress-resource
-    annotations:
-      kubernetes.io/ingress.class: "nginx"
-      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    name: ingress-resource-post
   spec:
+    ingressClassName: nginx
     rules:
     - http:
         paths:
         - pathType: Prefix
-          path: "/users"
+          path: /posts
           backend:
             service:
-              name: user-service
+              name: post-service
               port:
                 number: 80
