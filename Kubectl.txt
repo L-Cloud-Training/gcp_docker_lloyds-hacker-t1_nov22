@@ -1,0 +1,617 @@
+    1  kubectl get pods
+    2  cd ../ post
+    3  cd ../post
+    4  kubectl apply -f post.yaml 
+    5  cd ../user
+    6  kubectl apply -f user.yaml 
+    7  cd ../charity/
+    8  kubectl apply -f charity.yaml 
+    9  kubectl get pods
+   10  cd ../post
+   11  kubectl apply -f post.yaml 
+   12  kubectl get pods
+   13  kubectl apply -f post.yaml 
+   14  kubectl get pods
+   15  kubectl get ingress
+   16  cd ..
+   17  ls
+   18  kubectl create -f nginx-ingress.yaml 
+   19  kubectl get ingress
+   20  kubectl create -f configMap.yaml 
+   21  kubectl apply -f nginx-ingress.yaml 
+   22  kubectl get ingress
+   23  kubectl delete ingress web-ingress
+   24  kubectl create -f nginx-ingress.yaml 
+   25  kubectl get ingress
+   26  helm upgrade --install ingress-nginx ingress-nginx
+   27  helm upgrade --install ingress-nginx ingress-nginx   --repo https://kubernetes.github.io/ingress-nginx   --namespace ingress-nginx --create-namespace
+   28  helm list
+   29  helm remove my-release
+   30  helm uninstall my-release
+   31  helm uninstall nginx
+   32  helm list
+   33  helm upgrade --install ingress-nginx ingress-nginx   --repo https://kubernetes.github.io/ingress-nginx   --namespace ingress-nginx --create-namespace
+   34  kubectl get ingress
+   35  kubectl get pods --namespace=ingress-nginx
+   36  kubectl get service ingress-nginx-controller --namespace=ingress-nginx
+   37  kubectl create ingress demo --class=nginx   --rule="www.sharecare.io/*=demo:80"
+   38  cd web
+   39  kubectl apply -f web.yaml 
+   40  kubectl get ingress
+   41  kubectl delete ingress web-ingress
+   42  kubectl get ingress --all-namespaces
+   43  cd ..
+   44  kubectl apply -f nginx-ingress.yaml 
+   45  kubectl get ingress --all-namespaces
+   46  kubectl apply -f nginx-ingress.yaml 
+   47  kubectl describe ingress web-ingress
+   48  cd web
+   49  kubectl apply -f web.yaml 
+   50  cd ..
+   51  kubectl apply -f nginx-ingress.yaml 
+   52  cd charity/
+   53  kubectl apply -f charity.yaml 
+   54  cd ../media/
+   55  kubectl apply -f media.yaml 
+   56  cd ../post/
+   57  kubectl apply -f post.yaml 
+   58  cd ../user/
+   59  kubectl apply -f user.yaml 
+   60  cd
+   61  ls
+   62  cd Tuesday/
+   63  cd RokeHackDevOps/
+   64  git push
+   65  git add .
+   66  git commit -m "Working ingress"
+   67  git push
+   68  git status
+   69  gcloud iam service-accounts list
+   70  echo $GKE_PROJECT
+   71  gcloud projects add-iam-policy-binding cloud-ready-roke-team-1   --member=serviceAccount:443467006469-compute@developer.gserviceaccount.com      --role=roles/container.admin
+   72  gcloud iam service-accounts create sharecare-service-account
+   73  gcloud iam service-accounts list
+   74  gcloud projects add-iam-policy-binding cloud-ready-roke-team-1   --member=serviceAccount:sharecare-service-account@cloud-ready-roke-team-1.iam.gserviceaccount.com    --role=roles/container.admin
+   75  gcloud projects add-iam-policy-binding cloud-ready-roke-team-1   --member=serviceAccount:sharecare-service-account@cloud-ready-roke-team-1.iam.gserviceaccount.com    --role=roles/storage.admin
+   76  gcloud projects add-iam-policy-binding cloud-ready-roke-team-1   --member=serviceAccount:sharecare-service-account@cloud-ready-roke-team-1.iam.gserviceaccount.com    --role=roles/container.clusterViewer
+   77  gcloud iam service-accounts keys create key.json --iam-account=sharecare-service-account@cloud-ready-roke-team-1.iam.gserviceaccount.com
+   78  export PROJECT_ID="cloud-ready-roke-team-1"
+   79  echo $PROJECT_ID
+   80  gcloud services enable iamcredentials.googleapis.com   --project "${PROJECT_ID}"
+   81  gcloud iam workload-identity-pools create "sharecare-pool"   --project="${PROJECT_ID}"   --location="global"   --display-name="Sharecare pool"
+   82  gcloud iam workload-identity-pools describe "sharecare-pool"   --project="${PROJECT_ID}"   --location="global"   --format="value(name)"
+   83  export WORKLOAD_IDENTITY_POOL_ID="projects/443467006469/locations/global/workloadIdentityPools/sharecare-pool"
+   84  gcloud iam workload-identity-pools providers create-oidc "my-provider"   --project="${PROJECT_ID}"   --location="global"   --workload-identity-pool="sharecare-pool"   --display-name="Sharecare provider"   --attribute-mapping="google.subject=assertion.sub,attribute.actor=assertion.actor,attribute.repository=assertion.repository"   --issuer-uri="https://token.actions.githubusercontent.com"
+   85  export REPO="drengland1979/RokeHackDevOps"
+   86  gcloud iam service-accounts add-iam-policy-binding "my-service-account@${PROJECT_ID}.iam.gserviceaccount.com"   --project="${PROJECT_ID}"   --role="roles/iam.workloadIdentityUser"   --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
+   87  gcloud iam service-accounts add-iam-policy-binding "sharecare-service-account@${PROJECT_ID}.iam.gserviceaccount.com"   --project="${PROJECT_ID}"   --role="roles/iam.workloadIdentityUser"   --member="principalSet://iam.googleapis.com/${WORKLOAD_IDENTITY_POOL_ID}/attribute.repository/${REPO}"
+   88  gcloud iam workload-identity-pools providers describe "my-provider"   --project="${PROJECT_ID}"   --location="global"   --workload-identity-pool="sharecare-pool"   --format="value(name)"
+   89  docker pull gcr.io/cloud-ready-roke-team-1/web:latest
+   90  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/schema.sql:/docker-entrypoint-initdb.d/schema.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+   91  cd "C:\Users\coast\Desktop\Training\odh-containers.tar.gz"
+   92  tar-odh-containers.tar.gz
+   93  -help
+   94  help
+   95  tar -xvzf odh--containers.tar.gz
+   96  tar -xvzf odh-containers.tar.gz
+   97  tar -xvzf dbscripts.tar.gz
+   98  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/schema.sql:/docker-entrypoint-initdb.d/schema.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+   99  ls
+  100  cd odh-containers
+  101  ls
+  102  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/schema.sql:/docker-entrypoint-initdb.d/schema.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  103  console.log(process.env);
+  104  NODE
+  105  help
+  106  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/schema.sql:/docker-entrypoint-initdb.d/schema.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  107  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/schema.sql:/docker-entrypoint-initdb.d/schema.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  108  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/schema.sql:/docker-entrypoint-initdb.d/schema.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  109  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  110  docker run --help
+  111  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  112  docker logs -f postgres
+  113  docker list
+  114  docker ps -a
+  115  docker images
+  116  docker ps
+  117  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  118  docker ps
+  119  docker run postgres
+  120  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  121  docker ps
+  122  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  123  docker ps
+  124  docker run -d --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  125  docker ps -a
+  126  docker network create
+  127  docker network create test
+  128  docker network list
+  129  docker run -d --network=test --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  130  docker ps -a
+  131  docker ps
+  132  docker ps -a
+  133  docker run -d --network=test --name=postgres --rm --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  134  docker ps -a
+  135  docker ps
+  136  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  137  docker logs
+  138  docker logs 0e8475d31dab
+  139  cm user
+  140  docker rm 6c557271482b3a5ec0e78e16ec13f738415307859bb1416c43d84488475a7016
+  141  pwd
+  142  cd database
+  143  pw
+  144  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  145  docker rm 157fe1d3aebed6e57dab2c0ce1b36b98bdac0ff5188de3771781eadc68f2ab1
+  146  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  147  docker ps -a
+  148  docker logs
+  149  docker logs postgres
+  150  docker logs 0e8475d31dab
+  151  docker logs -f 0e8475d31dab
+  152  docker logs -f postgress
+  153  docker logs -f postgres
+  154  docker exec -it postgres
+  155  docker exec postgres
+  156  docker exec -it 636893f268ec
+  157  pwd
+  158  cd database
+  159  ls
+  160  docker exec -it postgres
+  161  docker exec --help
+  162  pwd
+  163  cd
+  164  cd database
+  165  \dt
+  166  cd
+  167  \dt
+  168  /dt
+  169  \dt
+  170  \du
+  171  psq -d postgres
+  172  psqlq -d postgres
+  173  cd database
+  174  psqlq -d postgres
+  175  cd
+  176  psql -d postgres
+  177  cd database
+  178  psql -d postgres
+  179  cd
+  180  psql -d postgres -u postgres
+  181  psql -d postgres -U postgress
+  182  psql -d postgres -U postgres
+  183  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  184  cd database
+  185  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  186  docker rm 636893f268ec0d75d6d346eff816ff5e2987b6a23870727fcd459bcb04243246
+  187  docker stop 636893f268ec0d75d6d346eff816ff5e2987b6a23870727fcd459bcb04243246
+  188  docker rm 636893f268ec0d75d6d346eff816ff5e2987b6a23870727fcd459bcb04243246
+  189  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  190  docker ps -a
+  191  psql -d postgres -U postgres
+  192  cd
+  193  psql -d postgres -U postgres
+  194  cd database
+  195  [12:01 PM] angela.qi00 (Guest)
+  196  <https://teams.microsoft.com/l/message/19:7ab7c72d3bec4f859880767e64d7c1b4@thread.tacv2/1668427296945?tenantId=31a57d65-b481-4ed4-a545-a631c0ec535a&amp;groupId=0820bb23-d77b-438b-b7be-d115eea607d2&amp;parentMessageId=1668418887290&amp;teamName=Lloyds Modern Engineering: DevOps + Kubernetes Hack&amp;channelName=Team 1&amp;createdTime=1668427296945&amp;allowXTenantAccess=false>
+  197  psql -d postgres -u postgres
+  198  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  199  psql -d postgres -u postgres
+  200  cd
+  201  docker network create test
+  202  psql -d postgres -u postgres
+  203  psql -d postgres -U postgres
+  204  docker network ls
+  205  cd database
+  206  psql -d postgres -U postgres
+  207  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  208  docker rm 7dc377520c13c3c3b17b79139bce60be880f54505b9b0d85cf091340ab720325
+  209  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  210  docker  ps -a
+  211  psql -d postgres -U postgres
+  212  docker exec -it postgres
+  213  docker exec
+  214  docker exec -it postgres bash psql -d postgres -U postgres
+  215  docker exec -tiu postgres proget-postgres psql
+  216  docker exec -tiu postgres proget-postgres
+  217  docker exec -tiu postgres postgres psql
+  218  docker network list
+  219  docker exec -tiu postgres postgres psql
+  220  cd ../
+  221  cd ../odh containers/user/
+  222  pwd
+  223  cd database
+  224  database
+  225  cd database
+  226  docker create network test
+  227  docker create network
+  228  pwd
+  229  cd /database
+  230  docker -ps a
+  231  docker ps -a
+  232  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  233  docker network create test
+  234  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  235  docker rm d29d1374e74b9e00004c7588b47111c67ba73361e3796c210a71b5c06f203871
+  236  cd database
+  237  cd /database
+  238  cd database
+  239  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  240  docker rm 4a50afb310ba9b69ab2a9970246e9c00b9157005b1af069019f95a5593ca58bd
+  241  docker network create
+  242  docker network create test
+  243  cd  database
+  244  cd database
+  245  docker exec -tiu postgres proget-postgres psql
+  246  cd database
+  247  pwd
+  248  ls
+  249  cd g0620
+  250  cd g0620_team1_hacker6
+  251  cd database
+  252  docker exec -tiu postgres proget-postgres psql
+  253  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  254  docker ps -a
+  255  docker exec -tiu postgres proget-postgres psql
+  256  docker network create test
+  257  docker run -d --network=test --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  258  docker exec -tiu postgres proget-postgres psql
+  259  docker exec -tiu postgres postgress psql
+  260  docker exec -tiu postgres postgres psql
+  261  pwd
+  262  cd
+  263  cd ../../app
+  264  cd ../../app/
+  265  cd aoo
+  266  cd app
+  267  docker images
+  268  docker ps -a
+  269  cd \app
+  270  cd /app
+  271  cd app
+  272  docker build ~/odh-containers/user/ -t user_app
+  273  docker image list
+  274  docker build ~/odh-containers/user/ -t user_app
+  275  pwd
+  276  docker build ~/odh-containers/user/ -t user_app
+  277  docker image list
+  278  docker run -d -name=user_app -network-test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo
+  279  docker build ~/odh-containers/user/ -t user_app
+  280  docker run -d -name=user_app -network-test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo
+  281  docker image list
+  282  docker run -d --name=user_app -network-test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo
+  283  docker run -d --name=user_app -network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo
+  284  docker run -d --name=user_app --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo
+  285  docker run ca818326eb9e -d --name=user_container --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo
+  286  docker run -d --name=user_container --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  287  docker ps
+  288  docker ps -a
+  289  pwd
+  290  cd
+  291  cd ../../app/
+  292  cd /app
+  293  cd database
+  294  pwd
+  295  cd app
+  296  pwd
+  297  cd
+  298  cd app
+  299  docker run -d --name=user_container --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  300  pwd
+  301  docker run -p 8080:3000 -d --name=user_container --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  302  docker rm f3860d4e52f68cf398a17f71e52076bbc3c25056156c897858d8d1b5df426276
+  303  docker run -p 8080:3000 -d --name=user_container --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  304  docker  ps -a
+  305  docker images
+  306  docker rm 07c091c69f99906dad7b2580bf43000ee777bf45c3633916dfbff1550aa792cd
+  307  docker run -p 8080:3000 -d --name=user_container --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  308  docker ps -a
+  309  docker rm 3c01224a31f83a29baf061efdcec1eec0bc82764f47fed30c43065bcf8d61dc5
+  310  pwd
+  311  cd
+  312  cd ~/odh-containers/user
+  313  docker run -p 8080:3000 -d --name=user_container --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  314  docker images
+  315  docker ps-a
+  316  docker ps -a
+  317  docker run -d --name=user_container --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  318  docker rm 184527d3b08e9a08fdc8ef2f8a297f0e46b84703511714cab6b7992cfde19dac
+  319  docker run -d --name=user_container --network=test --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  320  docker ps -a
+  321  docker network create localhost
+  322  cd app
+  323  docker run -d --name=user_container --network=localhost --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  324  docker build ~/odh-containers/user/ -t user_app
+  325  docker ps -a
+  326  docker run -d --name=user_container --network=localhost --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  327  docker ps -a
+  328  docker rm df8fc5b1acc4
+  329  docker run -d --name=user_container --network=localhost --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  330  docker ps -a
+  331  docker rm c66a666af145
+  332  pwd
+  333  cd
+  334  cd ~odh-containers/user
+  335  cd app
+  336  docker build ~/odh-containers/user/ -t user_app
+  337  cd ~odh-containers/user
+  338  cd
+  339  cd ~odh-containers/user
+  340  cd ~/odh-containers/user
+  341  docker run -d --name=user_container --network=localhost --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  342  docker ps-a
+  343  docker ps -a
+  344  docker run -p 8080:3000 -d --name=user_container --network=localhost --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  345  docker rm 7adffe4472308ef41384504a77d5ee818cb8dba67ff2e80efeff735a4bf3663b
+  346  docker run -p 8080:3000 -d --name=user_container --network=localhost --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  347  docker ps -a
+  348  docker network list
+  349  docker run -d --name=user_container --network=localhost -p 8080:3000 --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  350  docker rm c2ad9863c74a43b89161dcf42a2cca458544680d22fa5ded4d7d12ac450dd041
+  351  docker run -d --name=user_container --network=localhost -p 8080:3000 --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  352  docker ps -a
+  353  cd
+  354  cd database
+  355  docker run -d --network=localhost --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  356  docker ps -a
+  357  cd
+  358  cd ~/odh-containers/user
+  359  docker run -d --name=user_container --network=localhost -p 8080:3000 --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  360  docker rm dbbca762be38f6bb336af5cdb402b007d025b2c1612a0c85472925a25621aea6
+  361  docker run -d --name=user_container --network=localhost -p 8080:3000 --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  362  docker ps  -a
+  363  docker exec -itu postgres postgres psql
+  364  docker describe container postgres
+  365  docker inspect container postgres
+  366  docker inspect network localhost
+  367  docker run -d1 --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  368  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  369  docker rm 96a03ac5a996129a1ae4c768cbea77cfc17dbe5b2842a9ba7c391f95ffe634cd
+  370  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  371  docker ps -a
+  372  netstat
+  373  docker inspect local host
+  374  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=user --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  375  docker run -d --network=localhost --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  376  docker rm 51cd211d60afec640b96842699e9676648a735bb50bf080d3587c70dc4f53ba9
+  377  docker run -d --network=localhost --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  378  docker rm 1cd211d60afec640b96842699e9676648a735bb50bf080d3587c70dc4f53ba9
+  379  docker run -d --network=localhost --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  380  docker ps -a
+  381  docker run -d --network=localhost --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  382  docker rm 51cd211d60afec640b96842699e9676648a735bb50bf080d3587c70dc4f53ba9
+  383  docker run -d --network=localhost --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  384  docker exec -itu postgres postgres psql
+  385  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  386  docker rm 33dd
+  387  docker rm 33d
+  388  docker rm 0c229703cde1fd40e82f66f5bb675e759336e83174da39c116477243ec7a4d32
+  389  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=localhost --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  390  docker ps -a
+  391  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=postgres --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  392  docker rm b4e8fd12bd594a3e6c64ff0c9236f2c5554516a80ed690f68ed997bc79761417
+  393  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=postgres --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  394  docker ps -a
+  395  docker exec -it user_container bash
+  396  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=postgres --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  397  docker ps -a
+  398  docker exec -it user_container -- /bin/sh
+  399  ls /user/bin
+  400  docker exec -it user_container -- /usr/bin/sh
+  401  docker exec -it user_container /usr/bin/bash
+  402  docker exec -it user_container /usr/bin/sh
+  403  docker exec -it user_container /usr/bin/bash
+  404  ls /bin/bash
+  405  docker exec -it user_container /bin/bash
+  406  docker exec -it user_container bash
+  407  docker exec -it user_container bin/bash
+  408  docker exec -it user_container
+  409  docker exec -it user_container bash
+  410  cd
+  411  docker exec -it user_container bash
+  412  docker exec -it user_container bin/bash
+  413  docker ps -a
+  414  docker create network localhost
+  415  docker network create localhost
+  416  cd database
+  417  docker run -d --network=localhost --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  418  cd
+  419  docker exec -tiu postgres proget-postgres psql
+  420  docker exec -tiu postgres -postgres psql
+  421  docker build ~/odh-containers/user/ -t user_app
+  422  cd ~/odh-containers/user
+  423  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=postgres --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  424  ]docker ps -a
+  425  docker ps -a
+  426  wget localhost:3000
+  427  wget localhost:3000/user
+  428  wget localhost:3000/users
+  429  more users
+  430  wget localhost:3000/users
+  431  wget localhost:3000
+  432  wget localhost:3000/users
+  433  wget localhost:3000
+  434  more users
+  435  wget localhost:3000
+  436  cd
+  437  wget localhost:3000
+  438  wget localhost:3000 users
+  439  wget localhost:3000/users/
+  440  docker ps -a
+  441  docker build ~/odh-containers/user/ -t user_app
+  442  wget localhost:3000/users/
+  443  wget localhost:3000
+  444  docker exec -tiu postgres -postgres psql
+  445  docker exec -it postgres
+  446  docker exec -it postgres -postgres psql
+  447  docker ps -a
+  448  docker exec -tiu postgres -postgres psql
+  449  docker exec -itu postgres -postgres psql
+  450  wget localhost:3000
+  451  docker ps -a
+  452  cd ~/odh-containers/user/
+  453  docker exec -it user_container sh
+  454  cd
+  455  cd app
+  456  docker exec -it user_container sh
+  457  docker ps -a
+  458  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=postgres --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  459  wget localhost:3000
+  460  docker exec -it user_container sh
+  461  docker ps -a
+  462  cd ~/odh-containers/user/
+  463  docker run -d --network=localhost -p 8080:3000 --name=post_container --env=DATABASE_HOST=postgres --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  464  docker ps-a
+  465  docker ps -a
+  466  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=postgres --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  467  docker rm 562c4285151d85adefd19a21cb62a92d74e3357f868da282d74e8330d0a218d9
+  468  cd
+  469  docker rm 562c4285151d85adefd19a21cb62a92d74e3357f868da282d74e8330d0a218d9
+  470  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=postgres --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  471  docker ps -a
+  472  docker create network localhost
+  473  docker network create localhost
+  474  cd database
+  475  docker run -d --network=localhost --name=postgres --env=POSTGRES_PASSWORD=foo --volume=$(pwd)/user.sql:/docker-entrypoint-initdb.d/user.sql --volume=$(pwd):/repo postgres:latest -c log_statement=all
+  476  cd
+  477  docker build ~/odh-containers/user/ -t user_app
+  478  cd ~/odh-containers/users
+  479  cd ~/odh-containers/user
+  480  docker run -d --network=localhost -p 8080:3000 --name=user_container --env=DATABASE_HOST=postgres --env=DATABASE_PORT=5432 --env=DATABASE_NAME=postgres --env=DATABASE_USERNAME=postgres --env=DATABASE_PASSWORD=foo user_app
+  481  docker build ~/odh-containers/chairty/ -t charity_app
+  482  docker build ~/odh-containers/charity/ -t charity_app
+  483  docker ps -a
+  484  docker build ~/odh-containers/posty/ -t post_app
+  485  docker build ~/odh-containers/post/ -t post_app
+  486  docker build ~/odh-containers/media/ -t media_app
+  487  docker build ~odh-containers/web/ -t web_image
+  488  docker build ~/odh-containers/web/ -t web_image
+  489  docker run -d -p 5000:5000 --name registry registry:2
+  490  docker tag web_image
+  491  docker tag post_image gcr.io/lloyds-hack-t1/post_image
+  492  docker build ~/odh-containers/post/ -t post_app
+  493  docker ps -a
+  494  gcloud sql connect myinstance --user=postgres
+  495  gcloud container clusters get-credentials cluster-1     --region europe-west2-a
+  496  gcloud container clusters get-credentials cluster-1 --zone europe-west2-a --project lloyds-hack-t1
+  497  kubectl get nodes
+  498  kubectl get pods
+  499  kubectl apply -f charity_dep.yaml
+  500  kubectl get all
+  501  kubectl get pods
+  502  kubectl apply -f charity_dep.yaml
+  503  cd
+  504  cd odh-containers/
+  505  kubectl apply -f charity_dep.yaml
+  506  cd odh-containers/yaml
+  507  kubectl apply -f YAML/charity_dep.yaml
+  508  pwd
+  509  l s
+  510  ls
+  511  kubectl apply -f YAML/charity_dep.yaml
+  512  ls
+  513  kubectl apply -f YAML/charity_dep.yaml
+  514  kubectl get pods
+  515  kubectl apply -f YAML/media_dep.yaml
+  516  kubectl apply -f YAML/user_dep.yaml
+  517  kubectl apply -f YAML/post_dep.yaml
+  518  kubectl get pods
+  519  kubectl apply -f YAML/web_dep.yaml
+  520  kubectl get pods
+  521  kubectl delete pod charity_deployment
+  522  kubectl delete pod charity
+  523  kubectl delete pod charity-deployment-64ffb5d595-d5tvv
+  524  kubectl delete pod charity-deployment-64ffb5d595-vvp4s
+  525  kubectl apply -f YAML/charity_dep.yaml
+  526  kubectl get pods
+  527  kubectl describe pod charity-deployment-64ffb5d595-nmprj
+  528  kubectl get pods
+  529  kubectl describe post-deployment-56c459dd8-vf95b
+  530  kubectl describe pod post-deployment-56c459dd8-vf95b
+  531  kubectl get pods
+  532  kubectl apply -f YAML/charity_dep.yaml
+  533  kubectl apply -f YAML/user_dep.yaml
+  534  kubectl apply -f YAML/post_dep.yaml
+  535  kubectl apply -f YAML/media_dep.yaml
+  536  kubectl apply -f YAML/web_dep.yaml
+  537  kubectl get pods
+  538  kubectl get service
+  539  kubectl get service -a
+  540  kubectl get pods
+  541  gcloud container clusters get-credentials cluster-1     --region europe-west2-a
+  542  kubectl get pods
+  543  kubtectl describe pod media-deployment-745794f86c-7x26x
+  544  kubtectl describe pods media-deployment-745794f86c-7x26x
+  545  kubectl describe pods media-deployment-745794f86c-7x26x
+  546  kubectl get pods
+  547  kubectl get services
+  548  kubectl apply -f YAML/user_dep.yaml
+  549  kubectl get services
+  550  kubectl get pods
+  551  kubectl apply -f YAML/user_dep.yaml
+  552  kubectl apply -f YAML/web_dep.yaml
+  553  kubectl apply -f YAML/charity_dep.yaml
+  554  kubectl apply -f YAML/media_dep.yaml
+  555  kubectl apply -f YAML/post_dep.yaml
+  556  kubectl get pods
+  557  kubectl get services
+  558  kubectl apply -f YAML/charity_dep.yaml
+  559  kubectl get pods
+  560  kubectl get services
+  561  kubectl apply -f YAML/charity_dep.yaml
+  562  kubectl apply -f YAML/media_dep.yaml
+  563  kubectl apply -f YAML/post_dep.yaml
+  564  kubectl apply -f YAML/user_dep.yaml
+  565  kubectl apply -f YAML/web_dep.yaml
+  566  kubectl get services
+  567  kubectl get pods
+  568  kubectl describe pod charity-deployment-6c4f88cf-mkh25
+  569  kubectl apply -f YAML/web_dep.yaml
+  570  kubectl get services
+  571  kubectl apply -f YAML/web_dep.yaml
+  572* kubectl 
+  573  kubectl apply -f YAML/web_dep.yaml
+  574  kubectl get services
+  575  kubectl get pods
+  576  kubectl describe pod web-deployment-7db4c5c47d-4ds8v
+  577  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+  578  helm repo update
+  579  helm install nginx-ingress ingress-nginx/ingress-nginx
+  580  kubectl get deployment nginx-ingress-ingress-nginx-controller
+  581  kubectl get service nginx-ingress-ingress-nginx-controller
+  582  kubectl apply -f YAML/web_dep.yaml
+  583  kubectl get service nginx-ingress-ingress-nginx-controller
+  584  export NGINX_INGRESS_IP=$(kubectl get service nginx-ingress-ingress-nginx-controller -ojson | jq -r '.status.loadBalancer.ingress[].ip')
+  585  echo $NGINX_INGRESS_IP
+  586  kubectl apply -f YAML/web_dep.yaml
+  587  kubectl apply -f ingress-resource.yaml
+  588  kubectl get ingress ingress-resource
+  589  kubectl apply -f YAML/web_dep.yaml
+  590  kubectl apply -f YAML/users_dep.yaml
+  591  kubectl apply -f YAML/user_dep.yaml
+  592  kubectl apply -f YAML/post_dep.yaml
+  593  kubectl apply -f YAML/media_dep.yaml
+  594  kubectl apply -f YAML/charity_dep.yaml
+  595  kubectl get deployments
+  596  kubectl delete deployment web-deployment
+  597  kubectl apply -f YAML/web_dep.yaml
+  598  kubectl get pods
+  599  kubectl describe pod web-deployment-84d548c694-plh5q
+  600  kubectl logs web-deployment-84d548c694-plh5q
+  601  kubectl apply -f YAML/web_dep.yaml
+  602  kubectl get pods
+  603  kubectl logs web-deployment-85568849bf-dmx2h
+  604  kubectl describe pod web-deployment-85568849bf-dmx2h
+  605  kubectl get opds
+  606  kubectl get pods
+  607  kubectl delete deployment user-deployment-6fb4b7dd46-w6fbf
+  608  kubectl get deployments
+  609  kubectl delete deployment user-deployment
+  610  kubectl delete deployment post-deployment
+  611  kubectl delete deployment media-deployment
+  612* kubectl apply 
+  613  cd yaml
+  614  cd /yaml
+  615  cd /YAML
+  616  cd YAML
+  617  kubectl apply -f .
