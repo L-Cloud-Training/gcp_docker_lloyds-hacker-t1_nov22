@@ -77,9 +77,9 @@ jobs:
           .
 
     # Push the Docker image to Google Artifact Registry
-    - name: Publish
-      run: |-
-        docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
+    #- name: Publish
+    #  run: |-
+    #    docker push "$GAR_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA"
 
     # Set up kustomize
     #- name: Set up Kustomize
