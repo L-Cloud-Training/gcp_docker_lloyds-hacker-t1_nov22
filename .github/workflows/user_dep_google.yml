@@ -63,8 +63,6 @@ jobs:
     - name: Docker configuration
       run: |-
         echo Setting up docker config | gcloud auth configure-docker gcr.io
-        run : |- 
-          pwd
       #run: |-
       #  echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
 
@@ -82,7 +80,7 @@ jobs:
           --tag "$GAR_LOCATION/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" \
-          ../../user/
+          user/
 
     # Push the Docker image to Google Artifact Registry
     - name: Publish
