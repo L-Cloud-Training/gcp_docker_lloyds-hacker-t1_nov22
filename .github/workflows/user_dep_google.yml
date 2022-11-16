@@ -18,12 +18,12 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-  GAR_LOCATION: us-central1 # TODO: update region of the Artifact Registry
+  GAR_LOCATION: gcr.io # DONE: updated region of the Artifact (Container) Registry https://console.cloud.google.com/gcr/images/lloyds-hack-t1?referrer=search&project=lloyds-hack-t1
   GKE_CLUSTER: cluster-1    # DONE: updated to cluster name https://console.cloud.google.com/kubernetes/list/overview?project=lloyds-hack-t1
   GKE_ZONE: europe-west2-a   # DONE: updated to cluster zone
-  DEPLOYMENT_NAME: gke-test # TODO: update to deployment name
-  REPOSITORY: samples # TODO: update to Artifact Registry docker repository
-  IMAGE: static-site
+  DEPLOYMENT_NAME: user-deployment # DONE: updated to deployment name using the value set in yml.
+  REPOSITORY: lloyds-hack-t1 # DONE: update to Artifact Registry docker repository
+  IMAGE: user_image
 
 jobs:
   setup-build-publish-deploy:
