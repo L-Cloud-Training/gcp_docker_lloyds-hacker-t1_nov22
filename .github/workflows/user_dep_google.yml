@@ -35,13 +35,13 @@ jobs:
   #  runs-on: ubuntu-latest
   #  environment: production
 
-    #permissions:
-    #  contents: 'read'
-    #  id-token: 'write'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
-    #steps:
-    #- name: Checkout
-    #  uses: actions/checkout@v3
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
 
     # Configure Workload Identity Federation and generate an access token.
     #- id: 'auth'
