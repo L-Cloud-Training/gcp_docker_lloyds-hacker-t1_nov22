@@ -15,7 +15,7 @@ name: User Build and Publish to GKE
 on:
   push:
     branches: [ "master" ]
-    path: user/
+    paths: user/**
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
