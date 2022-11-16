@@ -29,6 +29,8 @@ jobs:
   setup:
     name: Setup
       echo "Hello"
+    runs-on: ubuntu-latest
+    environment: production
 
   #-build-publish:
   #  name: Setup, Build and Publish
