@@ -62,7 +62,9 @@ jobs:
     # Login docker to Google Container Registry
     - name: Docker configuration
       run: |-
-        echo hello | gcloud auth configure-docker gcr.io
+        echo Setting up docker config | gcloud auth configure-docker gcr.io
+        run : |- 
+          pwd
       #run: |-
       #  echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
 
