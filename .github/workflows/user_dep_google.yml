@@ -68,13 +68,13 @@ jobs:
         location: ${{ env.GKE_ZONE }}
 
     # Build the Docker image
-    - name: Build
-      run: |-
-        docker build \
-          --tag "$GAR_LOCATION/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" \
-          .
+    #- name: Build
+    #  run: |-
+    #    docker build \
+    #      --tag "$GAR_LOCATION/$PROJECT_ID/$REPOSITORY/$IMAGE:$GITHUB_SHA" \
+    #      --build-arg GITHUB_SHA="$GITHUB_SHA" \
+    #      --build-arg GITHUB_REF="$GITHUB_REF" \
+    #      .
 
     # Push the Docker image to Google Artifact Registry
     #- name: Publish
