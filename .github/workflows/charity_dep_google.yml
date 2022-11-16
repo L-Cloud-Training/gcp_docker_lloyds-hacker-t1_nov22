@@ -15,6 +15,7 @@ name: Charity Build and Publish to GKE
 on:
   push:
     branches: [ "master" ]
+    path: charity/
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}

@@ -15,6 +15,7 @@ name: Web Build and Publish to GKE
 on:
   push:
     branches: [ "master" ]
+    path: web/
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
