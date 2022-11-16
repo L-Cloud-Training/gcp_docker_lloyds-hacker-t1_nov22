@@ -45,10 +45,10 @@ jobs:
         node-version: '16.x'
         
     - name: Install dependencies
-    - run: npm install
+      run: npm install user/
 
     - name: Run unit tests
-    - run: npm test
+      run: npm test user/
 
     # Configure Workload authentication via credentials json
     - id: 'auth'
