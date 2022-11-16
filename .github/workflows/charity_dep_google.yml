@@ -14,7 +14,7 @@ name: Charity Build and Publish to GKE
 
 on:
   push:
-    branches: *
+    branches: '*'
     paths: charity/**
 
 env:
