@@ -75,3 +75,8 @@ spec:
               name: user-service
               port:
                 number: 80
+---
+  commonlabels:
+    app: User
+  resources:
+    - user_dep.yaml
