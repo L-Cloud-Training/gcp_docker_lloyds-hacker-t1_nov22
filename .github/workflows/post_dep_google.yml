@@ -14,7 +14,7 @@ name: Post Build and Publish to GKE
 
 on:
   push:
-    branches: [ "master" ]
+    branches: '*'
     paths: post/**
 
 env:
