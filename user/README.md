@@ -1,4 +1,4 @@
-# ShareCare User API TEST1
+# ShareCare User API TEST
 
 In order to run the API you'll need to set the following environment variables.
 
