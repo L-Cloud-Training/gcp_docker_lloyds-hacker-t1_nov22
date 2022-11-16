@@ -14,7 +14,7 @@ name: Media Build and Publish to GKE
 
 on:
   push:
-    branches: [ "master" ]
+    branches: '*'
     paths: media/**
 
 env:
