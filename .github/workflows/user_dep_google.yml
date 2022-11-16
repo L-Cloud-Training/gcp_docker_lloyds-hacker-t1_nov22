@@ -26,9 +26,8 @@ env:
   IMAGE: user_image # DONE: updated to the name of the image.
 
 jobs:
-  setup:
-    name: Setup
-      echo "Hello"
+  setup-build:
+    name: Setup and Build
     runs-on: ubuntu-latest
     environment: production
 
@@ -55,11 +54,11 @@ jobs:
     #    service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
 
     # Alternative option - authentication via credentials json
-    # - id: 'auth'
-    #   uses: 'google-github-actions/auth@v0'
-    #   with:
-    #     credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-    #     token_format: 'access_token'
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+        token_format: 'access_token'
     
     # Login docker to Google Container Registry
     #- name: Docker configuration 
